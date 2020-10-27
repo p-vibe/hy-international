@@ -20,6 +20,12 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B7D3A45A3F9CE84B82FA28A0 /* libPods-hy_international-hy_internationalTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE249E32B0FC79762C41B80 /* libPods-hy_international-hy_internationalTests.a */; };
 		B9759638C5592E7EAA866342 /* libPods-hy_international-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B0B7B3C401E5479F8C5A99 /* libPods-hy_international-tvOS.a */; };
+		3AD7EACB78E040D4837CE00F /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0603E23CBB1042A7BE610E06 /* ProximaNova-Regular.otf */; };
+		4C5FFB018F3E43A48722BD67 /* ProximaNovaA-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7EDED2EA92F94607B47BE1B5 /* ProximaNovaA-Light.otf */; };
+		8DC7CA37A89C4FB79668F4B0 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2A5BC7B634146894F27D9 /* NotoSansKR-Bold.otf */; };
+		3F386C0E776A4A259152EC05 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC2B12EF667A4BFCAD0A002E /* NotoSansKR-Medium.otf */; };
+		DCED7CBB9ABE469AA4C12244 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 66A91BF0E50A4029823AA97F /* NotoSansKR-Regular.otf */; };
+		4A99F6177A3B4F0D847935A0 /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CB1827099660439FAE3199C7 /* ProximaNova-Bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +74,12 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EFD6A68D250E150A9A080E96 /* Pods-hy_international.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hy_international.debug.xcconfig"; path = "Target Support Files/Pods-hy_international/Pods-hy_international.debug.xcconfig"; sourceTree = "<group>"; };
+		0603E23CBB1042A7BE610E06 /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; name = "ProximaNova-Regular.otf"; path = "../assets/fonts/ProximaNova-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7EDED2EA92F94607B47BE1B5 /* ProximaNovaA-Light.otf */ = {isa = PBXFileReference; name = "ProximaNovaA-Light.otf"; path = "../assets/fonts/ProximaNovaA-Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5FD2A5BC7B634146894F27D9 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; name = "NotoSansKR-Bold.otf"; path = "../assets/fonts/NotoSansKR-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CC2B12EF667A4BFCAD0A002E /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; name = "NotoSansKR-Medium.otf"; path = "../assets/fonts/NotoSansKR-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		66A91BF0E50A4029823AA97F /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; name = "NotoSansKR-Regular.otf"; path = "../assets/fonts/NotoSansKR-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CB1827099660439FAE3199C7 /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; name = "ProximaNova-Bold.otf"; path = "../assets/fonts/ProximaNova-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +194,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				0A28397331E86BF85545F0F7 /* Pods */,
+				6D00EDC587634A69A1DC6768 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -198,6 +211,20 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		6D00EDC587634A69A1DC6768 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				0603E23CBB1042A7BE610E06 /* ProximaNova-Regular.otf */,
+				7EDED2EA92F94607B47BE1B5 /* ProximaNovaA-Light.otf */,
+				5FD2A5BC7B634146894F27D9 /* NotoSansKR-Bold.otf */,
+				CC2B12EF667A4BFCAD0A002E /* NotoSansKR-Medium.otf */,
+				66A91BF0E50A4029823AA97F /* NotoSansKR-Regular.otf */,
+				CB1827099660439FAE3199C7 /* ProximaNova-Bold.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -344,6 +371,12 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				3AD7EACB78E040D4837CE00F /* ProximaNova-Regular.otf in Resources */,
+				4C5FFB018F3E43A48722BD67 /* ProximaNovaA-Light.otf in Resources */,
+				8DC7CA37A89C4FB79668F4B0 /* NotoSansKR-Bold.otf in Resources */,
+				3F386C0E776A4A259152EC05 /* NotoSansKR-Medium.otf in Resources */,
+				DCED7CBB9ABE469AA4C12244 /* NotoSansKR-Regular.otf in Resources */,
+				4A99F6177A3B4F0D847935A0 /* ProximaNova-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

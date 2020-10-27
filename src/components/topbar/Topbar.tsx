@@ -11,6 +11,7 @@ export type Props = {
   onBackPress?: () => void;
   iconSource?: ImageProps['source'];
   iconStyle?: ImageProps['style'];
+  LeftComponent?: JSX.Element;
   RightComponent?: JSX.Element;
 };
 
@@ -54,6 +55,7 @@ function Topbar({
   title,
   iconSource,
   iconStyle,
+  LeftComponent,
   RightComponent,
   onBackPress
 }: Props) {
@@ -61,14 +63,7 @@ function Topbar({
   return (
     <Container style={containerStyle}>
       <Content>
-        {iconSource ? (
-          <LeftButton
-            image={iconSource}
-            style={iconStyle}
-            hitSlopSize={16}
-            onPress={onBackPress}
-          />
-        ) : null}
+        {LeftComponent}
         {hasTitle && typeof title === 'string' ? (
           <Title numberOfLines={1}>{title}</Title>
         ) : null}

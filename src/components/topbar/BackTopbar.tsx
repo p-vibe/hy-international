@@ -1,7 +1,7 @@
 import React from 'react';
 import Topbar, { Props } from './Topbar';
-import icons from '../../../assets/icons';
 import InfoIcon from '../icons/InfoIcon';
+import BackIcon from '../icons/BackIcon';
 
 const BackTopbar: React.FC<Omit<Props, 'iconSource' | 'iconStyle'>> = ({
   title
@@ -9,11 +9,7 @@ const BackTopbar: React.FC<Omit<Props, 'iconSource' | 'iconStyle'>> = ({
   return (
     <Topbar
       title={title}
-      iconSource={icons.backButton}
-      iconStyle={{
-        width: 8,
-        height: 16
-      }}
+      LeftComponent={<BackIcon hitSlopSize={16} />}
       RightComponent={<InfoIcon hitSlopSize={23} />}
     />
   );

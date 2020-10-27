@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { ImageProps, TouchableOpacityProps } from 'react-native';
+import { TouchableOpacityProps } from 'react-native';
 import IconButton from '../button/IconButton';
 import icons from '../../../assets/icons';
 

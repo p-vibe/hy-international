@@ -11,6 +11,10 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/no-loop-func': 'off',
     '@typescript-eslint/no-redeclare': 'off',
-    '@typescript-eslint/no-shadow': 'off'
+    '@typescript-eslint/no-shadow': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    'no-restricted-syntax': 0,
+    'react/jsx-props-no-spreading': ['warn'],
+    'react/require-default-props': 'off'
   }
 };

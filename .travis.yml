@@ -1,3 +1,4 @@
+# deprecated : git action으로 바뀜
 language: node_js
 node_js:
   - 10

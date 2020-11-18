@@ -11,8 +11,10 @@
     "prettier:write": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}"
   },
   "dependencies": {
+    "@stomp/stompjs": "^6.0.0",
     "@svgr/cli": "^5.4.0",
     "@svgr/core": "^5.4.0",
+    "@types/sockjs-client": "^1.1.1",
     "glob": "^7.1.6",
     "lodash": "^4.17.20",
     "metro-config": "^0.63.0",
@@ -21,7 +23,9 @@
     "react-native-gifted-chat": "^0.16.3",
     "react-native-svg": "^12.1.0",
     "react-native-svg-transformer": "^0.14.3",
-    "styled-components": "^5.2.0"
+    "sockjs-client": "^1.5.0",
+    "styled-components": "^5.2.0",
+    "text-encoding-polyfill": "^0.6.7"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

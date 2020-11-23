@@ -19,7 +19,6 @@ const fontTypeToFont: { [key in FontType]: string } = {
 const Text = styled.Text<{ fontType: FontType }>`
   font-family: ${({ fontType }) => fontTypeToFont[fontType]};
   letter-spacing: -0.5px;
-  color: ${colors.gray900};
   include-font-padding: false;
 `;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageProps, StyleProp, ViewStyle } from 'react-native';
 import styled from 'styled-components/native';
-import Bold18 from '../text/Typographies';
+import { Bold18 } from '../text/Typographies';
 import colors from '../../styles/color';
 import IconButton from '../button/IconButton';
 

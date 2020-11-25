@@ -3,6 +3,7 @@ const colors = {
   black: '#000000',
   black50: '#80000000',
   black70: 'rgba(33,33,33,.7)',
+  blue_light: '#70acfa',
   blue_signiture: '#2F80ED',
   white: '#ffffff',
   gray20: '#fafafa',

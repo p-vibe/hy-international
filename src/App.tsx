@@ -11,6 +11,7 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import RegionalChatScreen from './components/screens/chat/RegionalChatScreen';
+import SignInScreen from './components/screens/SignInScreen';
 
 interface IToDo {
   text: string;
@@ -22,7 +23,7 @@ export default function App() {
   const [toDoList, setToDos] = useState<IToDo[]>([]);
   const [error, showError] = useState<Boolean>(false);
 
-  return <RegionalChatScreen />;
+  return <SignInScreen />;
 }
 
 const styles = StyleSheet.create({

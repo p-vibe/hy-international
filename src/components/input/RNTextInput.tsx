@@ -26,8 +26,8 @@ interface Props extends TextInputProps {
   borderBottomRightRadius?: number;
   placeHolder: string;
   placeholderTextColor: string;
-  containerWidth: string;
-  containerHeight: string;
+  containerWidth?: string;
+  containerHeight?: string;
 }
 
 export default function RNTextInput({
@@ -37,8 +37,8 @@ export default function RNTextInput({
   borderBottomRightRadius = 0,
   placeHolder,
   placeholderTextColor,
-  containerWidth,
-  containerHeight
+  containerWidth = '100%',
+  containerHeight = '100%'
 }: Props) {
   return (
     <Container

@@ -8,14 +8,36 @@ const Container = styled.View`
   align-items: center;
 `;
 
-const PasswordInput: React.FC = () => {
+interface Props {
+  containerWidth: string;
+  containerHeight: string;
+  marginTop: string;
+  marginBottom: string;
+}
+
+const PasswordInput: React.FC<Props> = ({
+  containerWidth,
+  containerHeight,
+  marginTop,
+  marginBottom
+}: Props) => {
+  const radius = 10;
   return (
-    <Container>
+    <Container
+      style={{
+        width: containerWidth,
+        height: containerHeight,
+        marginTop,
+        marginBottom
+      }}
+    >
       <RNTextInput
-        placeHolder="Password"
-        containerHeight="10%"
-        containerWidth="10%"
-        placeholderTextColor={colors.black}
+        borderTopLeftRadius={radius}
+        borderTopRightRadius={radius}
+        borderBottomLeftRadius={radius}
+        borderBottomRightRadius={radius}
+        placeHolder=" Password"
+        placeholderTextColor={colors.gray500}
       />
     </Container>
   );

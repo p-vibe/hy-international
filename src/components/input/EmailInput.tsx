@@ -10,6 +10,8 @@ import RNText from '../text/RNText';
 interface Props {
   containerWidth: string;
   containerHeight: string;
+  marginTop: string;
+  marginBottom: string;
 }
 
 const Container = styled.View`
@@ -20,18 +22,23 @@ const Container = styled.View`
 const AtSignView = styled.View`
   height: 100%
   width: 10%
-  background-color: ${colors.blue_light};
+  background-color: ${colors.blue_signiture};
   align-items: center;
   justify-content: center;
 `;
 
-const AtSign = styled(RNText).attrs({ fontType: 'BOLD', color: 'white' })`
+const AtSign = styled(RNText).attrs({
+  fontType: 'BOLD',
+  textColor: colors.white
+})`
   font-size: 25px;
 `;
 
 const EmailInput: React.FC<Props> = ({
   containerWidth,
-  containerHeight
+  containerHeight,
+  marginTop,
+  marginBottom
 }: Props) => {
   const radius: number = 10;
   const [value, setValue] = useState(null);
@@ -39,11 +46,18 @@ const EmailInput: React.FC<Props> = ({
   let controller;
 
   return (
-    <Container style={{ width: containerWidth, height: containerHeight }}>
+    <Container
+      style={{
+        width: containerWidth,
+        height: containerHeight,
+        marginTop,
+        marginBottom
+      }}
+    >
       <RNTextInput
         borderTopLeftRadius={radius}
         borderBottomLeftRadius={radius}
-        placeHolder="Email ID"
+        placeHolder=" Email ID"
         placeholderTextColor={colors.gray500}
         containerWidth="50%"
         containerHeight="100%"

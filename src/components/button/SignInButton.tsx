@@ -3,15 +3,20 @@ import styled from 'styled-components/native';
 import colors from '../../styles/color';
 import { Bold } from '../text/Typographies';
 
+interface Props {
+  containerWidth: string;
+  containerHeight: string;
+}
+
 const Container = styled.View`
   align-items: center;
   justify-content: center;
 `;
 
 const Elliptical = styled.TouchableOpacity`
+  width: 100%;
+  height: 100%;
   background: ${colors.blue_signiture};
-  width: 85%;
-  height: 25%;
   border-radius: 100px;
   border: none;
   color: ${colors.white};
@@ -26,12 +31,17 @@ const Content = styled(Bold)`
   font-size: 20px;
 `;
 
-export default function SignInButton() {
+const SignInButton: React.FC<Props> = ({
+  containerWidth,
+  containerHeight
+}: Props) => {
   return (
-    <Container>
+    <Container style={{ width: containerWidth, height: containerHeight }}>
       <Elliptical>
-        <Content>Sign In</Content>
+        <Content>Sign in</Content>
       </Elliptical>
     </Container>
   );
-}
+};
+
+export default SignInButton;

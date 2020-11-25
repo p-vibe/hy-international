@@ -13,6 +13,7 @@ export type Props = {
   iconStyle?: ImageProps['style'];
   LeftComponent?: JSX.Element;
   RightComponent?: JSX.Element;
+  justifyContent?: string;
 };
 
 const TOP_BAR_HEIGHT = 56;
@@ -34,13 +35,13 @@ const Container = styled.View`
   border-bottom-color: #d4d7dd;
 `;
 
-const Content = styled.View`
+const Content = styled.View<{ justifyContent: string }>`
   width: 100%;
   height: ${TOP_BAR_HEIGHT}px;
   background-color: ${colors.milkWhite};
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${({ justifyContent }) => justifyContent};
   padding-horizontal: 20px;
 `;
 
@@ -57,12 +58,13 @@ function Topbar({
   iconStyle,
   LeftComponent,
   RightComponent,
-  onBackPress
+  onBackPress,
+  justifyContent = 'space-between'
 }: Props) {
   const hasTitle = Boolean(title);
   return (
     <Container style={containerStyle}>
-      <Content>
+      <Content justifyContent={justifyContent}>
         {LeftComponent}
         {hasTitle && typeof title === 'string' ? (
           <Title numberOfLines={1}>{title}</Title>

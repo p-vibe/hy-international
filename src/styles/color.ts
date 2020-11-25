@@ -7,6 +7,8 @@ const colors = {
   white: '#ffffff',
   gray20: '#fafafa',
   milkWhite: '#fcfcfc',
+  gray_1: '#F6F6F6',
+  gray_2: '#E8E8E8',
   gray50: '#f5f5f5',
   gray100: '#f0f0f0',
   gray200: '#eaeaea',

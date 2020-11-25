@@ -26,11 +26,11 @@ const Content = styled(Bold)`
   font-size: 20px;
 `;
 
-export default function LoginButton() {
+export default function SignInButton() {
   return (
     <Container>
       <Elliptical>
-        <Content>Log In</Content>
+        <Content>Sign In</Content>
       </Elliptical>
     </Container>
   );

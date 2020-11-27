@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import RNTextInput from './RNTextInput';

@@ -34,7 +34,8 @@ const SendEmailButton = styled(DefaultButton).attrs({
   containerHeight: '90%',
   content: 'Send',
   ellipticalColor: colors.blue_signiture,
-  textColor: colors.white
+  textColor: colors.white,
+  borderRadius: '100px'
 })``;
 
 const VerifyEmailBox: React.FC = () => {

@@ -8,6 +8,7 @@ interface Props {
   content: string;
   ellipticalColor: string;
   textColor: string;
+  borderRadius: string;
 }
 
 const Container = styled.View`
@@ -18,11 +19,12 @@ const Container = styled.View`
 const Elliptical = styled.TouchableOpacity<{
   ellipticalColor: string;
   textColor: string;
+  borderRadius: string;
 }>`
   width: 100%;
   height: 100%;
   background: ${({ ellipticalColor }) => ellipticalColor};
-  border-radius: 100px;
+  border-radius: ${({ borderRadius }) => borderRadius};
   border: none;
   color: ${({ textColor }) => textColor};
   align-items: center;
@@ -41,11 +43,16 @@ const DefaultButton: React.FC<Props> = ({
   containerHeight,
   content,
   ellipticalColor,
-  textColor
+  textColor,
+  borderRadius
 }: Props) => {
   return (
     <Container style={{ width: containerWidth, height: containerHeight }}>
-      <Elliptical ellipticalColor={ellipticalColor} textColor={textColor}>
+      <Elliptical
+        ellipticalColor={ellipticalColor}
+        borderRadius={borderRadius}
+        textColor={textColor}
+      >
         <Content textColor={textColor}>{content}</Content>
       </Elliptical>
     </Container>

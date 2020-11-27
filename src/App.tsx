@@ -9,7 +9,7 @@
  */
 
 import React, { useState } from 'react';
-import SignUpScreen from './components/screens/SignUpScreen';
+import ZoneScreen from './components/screens/ZoneScreen';
 
 interface IToDo {
   text: string;
@@ -21,5 +21,5 @@ export default function App() {
   const [toDoList, setToDos] = useState<IToDo[]>([]);
   const [error, showError] = useState<Boolean>(false);
 
-  return <SignUpScreen />;
+  return <ZoneScreen />;
 }

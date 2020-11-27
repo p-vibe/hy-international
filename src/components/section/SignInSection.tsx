@@ -1,11 +1,11 @@
 import styled from 'styled-components/native';
 import React from 'react';
 import colors from '../../styles/color';
-import DefaultButton from '../button/DefaultButton';
-import DefaultTextInput from '../input/DefaultTextInput';
-import EmailInput from '../input/EmailInput';
-import Board from '../board/Board';
 import RNText from '../text/RNText';
+import Board from '../board/Board';
+import EmailInput from '../input/EmailInput';
+import DefaultTextInput from '../input/DefaultTextInput';
+import DefaultButton from '../button/DefaultButton';
 
 const Container = styled.View`
   height: 100%;
@@ -74,6 +74,7 @@ const SignInSection: React.FC = () => {
         content="Sign In"
         ellipticalColor={colors.blue_signiture}
         textColor={colors.white}
+        borderRadius="100px"
       />
     </Container>
   );

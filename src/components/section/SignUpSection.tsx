@@ -52,6 +52,7 @@ const SignUpSection: React.FC = () => {
         content="Sign Up"
         ellipticalColor={colors.blue_signiture}
         textColor={colors.white}
+        borderRadius="100px"
       />
     </Container>
   );

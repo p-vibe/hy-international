@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import ContainerWithStatusBar from '../container/ContainerWithStatusBar';
-import colors from '../../styles/color';
-import SignUpSection from '../section/SignUpSection';
+import ContainerWithStatusBar from '../components/container/ContainerWithStatusBar';
+import colors from '../styles/color';
+import SignUpSection from '../components/section/SignUpSection';
 
 const Container = styled(ContainerWithStatusBar)`
   background-color: ${colors.milkWhite};

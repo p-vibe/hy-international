@@ -3,15 +3,21 @@ import styled from 'styled-components/native';
 import ContainerWithStatusBar from '../components/container/ContainerWithStatusBar';
 import colors from '../styles/color';
 import SignUpSection from '../components/section/SignUpSection';
+import BackTopbar from '../components/topbar/BackTopbar';
 
 const Container = styled(ContainerWithStatusBar)`
   background-color: ${colors.milkWhite};
   align-items: center;
 `;
 
-const SignUpScreen: React.FC = () => {
+interface Props {
+  componentId: string;
+}
+
+const SignUpScreen: React.FC<Props> = ({ componentId }: Props) => {
   return (
     <Container statusBarColor={colors.blue_light}>
+      <BackTopbar componentId={componentId} />
       <SignUpSection />
     </Container>
   );

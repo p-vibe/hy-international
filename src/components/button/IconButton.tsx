@@ -7,6 +7,7 @@ export interface Props extends TouchableOpacityProps {
   image: ImageProps['source'];
   style?: ImageProps['style'];
   hitSlopSize?: number;
+  onPress?: () => void;
 }
 
 const Container = styled.TouchableOpacity`
@@ -24,10 +25,11 @@ export default function IconButton({
   image,
   style,
   hitSlopSize,
+  onPress,
   ...props
 }: Props) {
   return (
-    <Container hitSlop={getHitSlop(hitSlopSize)}>
+    <Container hitSlop={getHitSlop(hitSlopSize)} onPress={onPress}>
       <Icon source={image} style={style} />
     </Container>
   );

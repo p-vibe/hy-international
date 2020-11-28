@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components/native';
 import ContainerWithStatusBar from '../../components/container/ContainerWithStatusBar';
 import colors from '../../styles/color';
-import BackTopbar from '../../components/topbar/BackTopbar';
 import SignInSection from '../../components/section/SignInSection';
 
 const Container = styled(ContainerWithStatusBar)`

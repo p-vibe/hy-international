@@ -12,7 +12,6 @@ const Container = styled(ContainerWithStatusBar)`
 const RegionalChatScreen: React.FC = () => {
   return (
     <Container statusBarColor={colors.red20}>
-      <BackTopbar title="Wangsimni" />
       <SignInSection />
     </Container>
   );

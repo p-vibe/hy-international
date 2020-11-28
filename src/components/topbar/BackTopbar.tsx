@@ -1,15 +1,21 @@
 import React from 'react';
-import Topbar, { Props } from './Topbar';
+import Topbar from './Topbar';
 import InfoIcon from '../icons/InfoIcon';
-import BackIcon from '../icons/BackIcon';
+import BackButton from '../button/BackButton';
+
+export type Props = {
+  componentId: string;
+  title?: string;
+};
 
 const BackTopbar: React.FC<Omit<Props, 'iconSource' | 'iconStyle'>> = ({
+  componentId,
   title
 }: Props) => {
   return (
     <Topbar
       title={title}
-      LeftComponent={<BackIcon hitSlopSize={16} />}
+      LeftComponent={<BackButton componentId={componentId} hitSlopSize={16} />}
       RightComponent={<InfoIcon hitSlopSize={23} />}
     />
   );

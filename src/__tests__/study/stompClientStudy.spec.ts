@@ -1,4 +1,4 @@
-import { Client, FrameImpl, IFrame } from '@stomp/stompjs';
+import { Client, FrameImpl, IFrame, StompHeaders } from '@stomp/stompjs';
 
 import { v4 as uuidv4 } from 'uuid';
 import { WS } from 'jest-websocket-mock';
@@ -6,62 +6,78 @@ import { IPublishParams } from '@stomp/stompjs/esm6/types';
 import ChatMessageDto from 'dto/chatMessageDto';
 
 const brokerURL = 'ws://localhost:1234/ws-stomp';
-const server = new WS(brokerURL);
-const stompClient = new Client({
-  brokerURL,
-  reconnectDelay: 5000,
-  heartbeatIncoming: 4000,
-  heartbeatOutgoing: 4000,
-  onConnect: (frame: IFrame) => {}
-});
-
-async function disconnect() {
-  await stompClient.deactivate();
-  expect(stompClient.active).toBeFalsy();
-}
 
 describe('Stomp Client', () => {
-  afterEach(async () => {
-    await disconnect();
+  let stompClient: Client;
+  afterAll(async () => {
+    await disconnect(stompClient);
+    WS.clean();
   });
-  it('should publish CONNECT message', async () => {
-    // when
-    const connectMessage: FrameImpl = await connect();
-    // then
-    await expect(server).toReceiveMessage(connectMessage.serialize());
-    expect(server).toHaveReceivedMessages([connectMessage.serialize()]);
-  });
-  it('should publish SEND message', async () => {
-    // given
-    await connect();
-    // when
-    const message: FrameImpl = sendMessage();
-    // then
-    await expect(server).toReceiveMessage(message.serialize());
-    expect(server).toHaveReceivedMessages([message.serialize()]);
-  });
-  it('should throw Type error when sending message with deactivated state', async () => {
-    // given
-    expect(stompClient.active).toBeFalsy();
+  describe('when server is valid', () => {
+    const server: WS = new WS(brokerURL, { verifyClient: () => true });
+    const mockOnConnect: (
+      frame: IFrame
+    ) => void = jest.fn((frame: IFrame) => {});
 
-    expect(() => sendMessage()).toThrow(
-      new TypeError("Cannot read property 'publish' of undefined")
-    );
+    it('should Connect & publish SEND message', async () => {
+      // given
+      stompClient = createClient(() => {}, mockOnConnect);
+      // when
+      await connect(stompClient, server);
+      // then
+      await assertConnected(server, mockOnConnect);
+      await assertSendMessagePublished(stompClient, server);
+    });
+
+    it('should throw Type error when sending message with deactivated state', () => {
+      // given
+      stompClient = createClient(() => {}, mockOnConnect);
+      expect(stompClient.active).toBeFalsy();
+
+      // when & then
+      expect(() => sendMessage(stompClient)).toThrow(
+        new TypeError("Cannot read property 'publish' of undefined")
+      );
+    });
+
+    it('should not be connected with deactivate_beforeConnect, but connected after configure', async () => {
+      // given
+      const mockBeforeConnect = jest.fn(() => {
+        stompClient.deactivate();
+      });
+      stompClient = createClient(mockBeforeConnect, (frame) => {});
+      // when
+      stompClient.activate();
+      // then
+      expect(mockBeforeConnect).toBeCalled();
+
+      // when
+      stompClient.configure({
+        brokerURL,
+        reconnectDelay: 5000,
+        heartbeatIncoming: 4000,
+        heartbeatOutgoing: 4000,
+        beforeConnect: () => {},
+        onConnect: mockOnConnect
+      });
+      connect(stompClient, server);
+      // then
+      await assertConnected(server, mockOnConnect);
+    });
   });
 });
 
-async function connect(): Promise<FrameImpl> {
-  const connectMessage: FrameImpl = new FrameImpl({
-    command: 'CONNECT',
-    headers: { 'accept-version': '1.0,1.1,1.2', 'heart-beat': '4000,4000' }
-  });
-  // when
+async function connect(stompClient: Client, server: WS): Promise<void> {
   stompClient.activate();
+  server.on('connection', (socket) => {
+    socket.send(
+      createMessage('CONNECTED', { version: '1.2', 'heart-beat': '0,0' })
+    );
+  });
   await server.connected;
-  return connectMessage;
 }
 
-function sendMessage(): FrameImpl {
+function sendMessage(stompClient: Client): string | ArrayBuffer {
   const chatMessageDto = ChatMessageDto.of(
     uuidv4(),
     new Date(),
@@ -88,10 +104,53 @@ function sendMessage(): FrameImpl {
     body
   });
   stompClient.publish(params);
-  return message;
+  return message.serialize();
 }
 
-afterAll(async () => {
+async function disconnect(stompClient: Client) {
   await stompClient.deactivate();
-  server.close();
-});
+  expect(stompClient.active).toBeFalsy();
+}
+
+function createClient(
+  beforeConnect: () => void,
+  onConnect: (frame: IFrame) => void
+) {
+  return new Client({
+    brokerURL,
+    reconnectDelay: 5000,
+    heartbeatIncoming: 4000,
+    heartbeatOutgoing: 4000,
+    beforeConnect,
+    onConnect
+  });
+}
+
+function createMessage(
+  command: string,
+  header: StompHeaders
+): string | ArrayBuffer {
+  return new FrameImpl({
+    command,
+    headers: header
+  }).serialize();
+}
+
+async function assertConnected(
+  server: WS,
+  mockOnConnect: (frame: IFrame) => void
+) {
+  const connectMessage: string | ArrayBuffer = createMessage('CONNECT', {
+    'accept-version': '1.0,1.1,1.2',
+    'heart-beat': '4000,4000'
+  });
+  await expect(server).toReceiveMessage(connectMessage);
+  expect(server).toHaveReceivedMessages([connectMessage]);
+  expect(mockOnConnect).toBeCalled();
+}
+
+async function assertSendMessagePublished(stompClient: Client, server: WS) {
+  const message: string | ArrayBuffer = sendMessage(stompClient);
+  await expect(server).toReceiveMessage(message);
+  expect(server).toHaveReceivedMessages([message]);
+}

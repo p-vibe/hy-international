@@ -1,54 +1,61 @@
 import { injectable } from 'inversify';
 import { Client, IFrame } from '@stomp/stompjs';
-import { IMessage } from '@stomp/stompjs/esm6/i-message';
-import createStompClient from 'src/api/adapter/stompClientFactory';
+import { IMessage as StompMessage } from '@stomp/stompjs/esm6/i-message';
+import createStompClient, {
+  WebSocketVersion
+} from 'src/api/adapter/stompClientFactory';
 import ChatRoom from 'src/model/chatRoom';
-import ChatMessage from 'src/model/chatMessage';
 import ChatMessageDto from 'src/dto/chatMessageDto';
+import ChatRoomId from 'src/model/chatRoomId';
 
 @injectable()
 export default class ChatApi {
-  // todo: move to config file
+  // todo: config 파일로 옮기
+  private static readonly DESTINATION_PREFIX = '/sub/chat/room/';
 
   private readonly ws: Client;
 
   constructor() {
     this.ws = createStompClient(
-      'ws://localhost:8080/ws-stomp',
-      async () => {
-        await this.ws.deactivate();
+      'INVALID_URL',
+      {
+        beforeConnect: async () => {
+          await this.ws.deactivate();
+        }
       },
-      (frame: IFrame) => {}
+      WebSocketVersion.STANDARD
     );
   }
 
-  public sendMessage(chatRoom: ChatRoom, chatMessage: ChatMessage): void {
+  public sendMessage(
+    chatRoomId: ChatRoomId,
+    chatMessageDto: ChatMessageDto
+  ): void {
     this.assertSocketConnected();
     const header = { 'content-type': 'application/json' };
-    const chatMessageDto = ChatMessageDto.fromMessage(chatMessage);
+
     this.ws.publish({
-      destination: chatRoom.id.toString(),
+      destination: ChatApi.DESTINATION_PREFIX + chatRoomId.toString(),
       headers: header,
       body: chatMessageDto.serialize()
     });
   }
 
-  public leaveRoom(chatRoom: ChatRoom): void {
-    this.ws.unsubscribe(chatRoom.id.toString());
+  public leaveRoom(chatRoomId: ChatRoomId): void {
+    this.ws.unsubscribe(chatRoomId.toString());
   }
 
   public joinRoom(
-    chatRoom: ChatRoom,
-    subscribeCallback: (message: IMessage) => {}
+    chatRoomId: ChatRoomId,
+    subscribeCallback: (message: StompMessage) => void
   ): void {
     this.ws.configure({
       brokerURL: 'ws://localhost:8080/ws-stomp',
-      reconnectDelay: 5000,
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000,
+      forceBinaryWSFrames: true,
+      appendMissingNULLonIncoming: true,
       beforeConnect: () => {},
       onConnect: (frame: IFrame) => {
-        this.subscribe(chatRoom, subscribeCallback);
+        this.subscribe(chatRoomId, subscribeCallback);
       }
     });
     this.ws.activate();
@@ -60,17 +67,24 @@ export default class ChatApi {
     }
   }
 
+  // todo: appendingMissingNullonIncoming: true 는 메시지의 크기가 커지면 문제가 될 수 있다고 한다. 현재는 리액티 네이티브에서 이 옵션이 필요한데,
+  //  나중에 리액트 네이티브가 업데이트되면 이 옵션이 필요 없어질 수 있다. 그 때 지우기!
+  //  reference: https://stomp-js.github.io/workaround/stompjs/rx-stomp/ng2-stompjs/react-native-additional-notes.html
+
   // todo: check subscribe할 때 콜백이 리턴 값을 가질 수 있을지...
   private subscribe(
-    chatRoom: ChatRoom,
-    subscribeCallback: (message: IMessage) => {}
+    chatRoomId: ChatRoomId,
+    subscribeCallback: (message: StompMessage) => void
   ): void {
-    const roomId: string = chatRoom.id.toString();
+    const roomId: string = chatRoomId.toString();
     const header = {
       id: roomId,
       ack: 'client'
     };
-    const destinationPrefix = '/sub/chat/room/';
-    this.ws.subscribe(destinationPrefix + roomId, subscribeCallback, header);
+    this.ws.subscribe(
+      ChatApi.DESTINATION_PREFIX + roomId,
+      subscribeCallback,
+      header
+    );
   }
 }

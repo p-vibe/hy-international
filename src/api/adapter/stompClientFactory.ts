@@ -1,29 +1,31 @@
-import { Client, IFrame, Stomp } from '@stomp/stompjs';
+import { Client, CompatClient, Stomp, StompConfig } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 const createStompClient = (
   url: string,
-  beforeConnect: () => void,
-  onConnect: (frame: IFrame) => void,
+  stompConfig: StompConfig,
   webSocketVersion: WebSocketVersion = WebSocketVersion.STANDARD
 ): Client => {
   if (webSocketVersion === WebSocketVersion.SOCKJS) {
-    return Stomp.over(() => new SockJS(url));
+    const compatClient: CompatClient = Stomp.over(() => new SockJS(url));
+    compatClient.configure(stompConfig);
+    return compatClient;
   }
-  return new Client({
-    brokerURL: url,
-    reconnectDelay: 5000,
-    heartbeatIncoming: 4000,
-    heartbeatOutgoing: 4000,
-    beforeConnect,
-    onConnect
-  });
+
+  if (webSocketVersion === WebSocketVersion.REACT_NATIVE) {
+    const compatClient: CompatClient = Stomp.over(() => new WebSocket(url));
+    compatClient.configure(stompConfig);
+    return compatClient;
+  }
+
+  return new Client(stompConfig);
 };
 
 // todo: ReactNative에 내장된 WebSocket도 넣어주기
-enum WebSocketVersion {
+export enum WebSocketVersion {
   STANDARD = 'STANDARD',
-  SOCKJS = 'SOCKJS'
+  SOCKJS = 'SOCKJS',
+  REACT_NATIVE = 'REACT_NATIVE'
 }
 
 export default createStompClient;

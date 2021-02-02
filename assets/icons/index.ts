@@ -3,7 +3,7 @@ const information = require('./Information.png');
 
 const icons = {
   backButton,
-  information
+  information,
 };
 
 export default icons;
